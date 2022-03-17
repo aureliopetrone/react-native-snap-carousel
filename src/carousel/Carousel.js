@@ -970,7 +970,7 @@ export default class Carousel extends Component {
     }
 
     _snapScroll (delta) {
-        const { swipeThreshold } = this.props;
+        const { swipeThreshold, canSnapToNextItem, canSnapToPreviousItem } = this.props;
 
         // When using momentum and releasing the touch with
         // no velocity, scrollEndActive will be undefined (iOS)
@@ -981,11 +981,11 @@ export default class Carousel extends Component {
         const isNext = this._scrollStartActive < this._scrollEndActive;
         if(isNext){
             if(!canSnapToNextItem){
-                return
+                this._snapToItem(this._scrollStartActive);
             }
         }else{
             if(!canSnapToPreviousItem){
-                return
+                this._snapToItem(this._scrollStartActive);
             }
         }
 
