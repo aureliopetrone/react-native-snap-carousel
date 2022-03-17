@@ -978,6 +978,17 @@ export default class Carousel extends Component {
             this._scrollEndActive = this._scrollStartActive;
         }
 
+        const isNext = this._scrollStartActive < this._scrollEndActive;
+        if(isNext){
+            if(!canSnapToNextItem){
+                return
+            }
+        }else{
+            if(!canSnapToPreviousItem){
+                return
+            }
+        }
+
         if (this._scrollStartActive !== this._scrollEndActive) {
             // Snap to the new active item
             this._snapToItem(this._scrollEndActive);
