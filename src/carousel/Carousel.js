@@ -67,7 +67,9 @@ export default class Carousel extends Component {
         useScrollView: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
         vertical: PropTypes.bool,
         onBeforeSnapToItem: PropTypes.func,
-        onSnapToItem: PropTypes.func
+        onSnapToItem: PropTypes.func,
+        canSnapToNextItem: PropTypes.bool,
+        canSnapToPreviousItem: PropTypes.bool
     };
 
     static defaultProps = {
@@ -1001,7 +1003,7 @@ export default class Carousel extends Component {
     }
 
     _snapToItem (index, animated = true, fireCallback = true, initial = false, lockScroll = true) {
-        const { enableMomentum, onSnapToItem, onBeforeSnapToItem } = this.props;
+        const { enableMomentum, onSnapToItem, onBeforeSnapToItem, canSnapToNextItem, canSnapToPreviousItem } = this.props;
         const itemsLength = this._getCustomDataLength();
         const wrappedRef = this._getWrappedRef();
 
@@ -1013,6 +1015,15 @@ export default class Carousel extends Component {
             index = 0;
         } else if (itemsLength > 0 && index >= itemsLength) {
             index = itemsLength - 1;
+        }
+
+        const isNext = this._previousActiveItem < index;
+        if(isNext){
+            if(!canSnapToNextItem){
+                return
+            }
+        }else{
+            if(!canSnapToPreviousItem)
         }
 
         if (index !== this._previousActiveItem) {
@@ -1123,6 +1134,7 @@ export default class Carousel extends Component {
     }
 
     snapToItem (index, animated = true, fireCallback = true) {
+
         if (!index || index < 0) {
             index = 0;
         }
