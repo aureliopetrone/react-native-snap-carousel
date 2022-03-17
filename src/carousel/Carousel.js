@@ -1023,7 +1023,9 @@ export default class Carousel extends Component {
                 return
             }
         }else{
-            if(!canSnapToPreviousItem)
+            if(!canSnapToPreviousItem){
+                return
+            }
         }
 
         if (index !== this._previousActiveItem) {
