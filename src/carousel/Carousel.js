@@ -101,7 +101,9 @@ export default class Carousel extends Component {
         shouldOptimizeUpdates: true,
         swipeThreshold: 20,
         useScrollView: !AnimatedFlatList,
-        vertical: false
+        vertical: false,
+        canSnapToNextItem: true,
+        canSnapToPreviousItem: true
     }
 
     constructor (props) {
